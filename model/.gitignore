@@ -1,4 +1,5 @@
 .ipynb_checkpoints
 data_loader
 model_storage
+embedding
 __pycache__
