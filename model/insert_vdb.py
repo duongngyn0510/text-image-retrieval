@@ -18,5 +18,5 @@ with open('embedding/embedding_images.json', 'r') as f:
     embedding_data = json.load(f)
 
 # len(embedding_data) = 85577
-# number of vectors need to be inserted to Pinecone DB is 85577
+# n vectors need to be inserted to Pinecone DB is 85577
 pineconevdb.insert_batch(index_name, embedding_data)
