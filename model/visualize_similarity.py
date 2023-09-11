@@ -79,7 +79,7 @@ def visualize_similarity(using_pretrained=True):
     plt.ylim([count + 0.5, -2])
 
     plt.title(f"Cosine similarity between text and image embeddings {'using' if using_pretrained is True else 'not using'} pretrained model", size=20)
-    plt.savefig(f"text_image_similarity/{'using' if using_pretrained is True else 'not using'} pretrained model.png",  bbox_inches='tight')
+    plt.savefig(f"text_image_similarity/{'using' if using_pretrained is True else 'not_using'}_pretrained_model.png",  bbox_inches='tight')
     plt.show()
     
 
