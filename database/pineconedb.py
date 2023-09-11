@@ -23,19 +23,12 @@ class PineConeVDB:
         else:
             print("Index already exists!")
 
-    def insert_record(self, index_name, vector_data):
-        index = pinecone.Index(index_name)
-        index.upsert(
-            vectors=[vector_data]
-        )
-        print("Inserted successfully")  
-
     def insert_records(self, index_name, vector_data):
         index = pinecone.Index(index_name)
         index.upsert(
             vectors=vector_data
         )
-        print("Inserted successfully") 
+        print("Inserted successfully")  
 
     def insert_batch(self, index_name, vectors_data):
         index = pinecone.Index(index_name)
