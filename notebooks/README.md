@@ -3,4 +3,4 @@ Make directory `data_loader`
 + Download [`test_dataloader.pkl`](https://drive.google.com/file/d/1lsUx4rs6jozRW3SnoG1LfxIrpgJHNuTW/view?usp=sharing) and save in `data_loader` directory.
 
 
-`test_retrieval.ipynb` for test retrieval in Pinecone vector database
+`test_retrieval.ipynb` for test retrieval to Pinecone vector database
