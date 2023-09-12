@@ -4,7 +4,7 @@
 
 Fine-tune [CLIP](https://arxiv.org/abs/2103.00020) in image-retrieval task
 
-+  **Input**: Image or text query.
++  **Input**: Image or text query related to *FASHION*.
 
 +  **Output**: Top images with the highest similarity according to the cosine metrics.
 
