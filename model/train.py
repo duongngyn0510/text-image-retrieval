@@ -1,19 +1,20 @@
 # Need training on Colab
+import warnings
+
 import clip
 import torch
 import torch.nn as nn
-import warnings
-from tqdm import tqdm
-from loguru import logger
 from config import Config
-from custom_dataset import FashionDataset, BalancedBatchSampler
-from utils import load_dataloader, convert_models_to_fp32
+from custom_dataset import BalancedBatchSampler, FashionDataset
+from loguru import logger
+from tqdm import tqdm
+from utils import load_dataloader
 
 warnings.filterwarnings("ignore")
 
 BATCH_SIZE = Config.BATCH_SIZE
 TRAIN_DATALOADER_PATH = Config.TRAIN_DATALOADER_PATH
-TEST_DATALOADER_PATH =  Config.TEST_DATALOADER_PATH
+TEST_DATALOADER_PATH = Config.TEST_DATALOADER_PATH
 TRAIN_EPOCHS = Config.TRAIN_EPOCHS
 PRETRAINED_PATH = Config.PRETRAINED_PATH
 
@@ -24,7 +25,21 @@ logger.info(f"Device: {device}")
 loaded_train_dataloader = load_dataloader(TRAIN_DATALOADER_PATH)
 loaded_test_dataloader = load_dataloader(TEST_DATALOADER_PATH)
 
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-5, betas=(0.9, 0.98), eps=1e-6, weight_decay=0.2)
+
+def convert_models_to_fp32(model):
+    """
+    Convert model's parameters to FP32 format for update parameters in optimizer step
+    Args:
+        model: torch.nn.Module
+    """
+    for p in model.parameters():
+        p.data = p.data.float()
+        p.grad.data = p.grad.data.float()
+
+
+optimizer = torch.optim.Adam(
+    model.parameters(), lr=1e-5, betas=(0.9, 0.98), eps=1e-6, weight_decay=0.2
+)
 loss_img = nn.CrossEntropyLoss()
 loss_txt = nn.CrossEntropyLoss()
 
@@ -44,7 +59,10 @@ for epoch in range(1, TRAIN_EPOCHS + 1):
         ground_truth = torch.arange(BATCH_SIZE).to(device)
 
         # Compute loss
-        total_loss = (loss_img(logits_per_image, ground_truth) + loss_txt(logits_per_text, ground_truth)) / 2
+        total_loss = (
+            loss_img(logits_per_image, ground_truth)
+            + loss_txt(logits_per_text, ground_truth)
+        ) / 2
 
         # Backward pass
         if device == "cpu":
@@ -58,7 +76,9 @@ for epoch in range(1, TRAIN_EPOCHS + 1):
             optimizer.step()
             clip.model.convert_weights(model)
 
-        pbar.set_description(f"Epoch {epoch}/{TRAIN_EPOCHS}, Loss: {total_loss.item():.4f}")
+        pbar.set_description(
+            f"Epoch {epoch}/{TRAIN_EPOCHS}, Loss: {total_loss.item():.4f}"
+        )
 
     test_loss = 0
     with torch.no_grad():
@@ -73,7 +93,10 @@ for epoch in range(1, TRAIN_EPOCHS + 1):
             ground_truth = torch.arange(BATCH_SIZE).to(device)
 
             # Compute loss
-            total_loss = (loss_img(logits_per_image, ground_truth) + loss_txt(logits_per_text, ground_truth)) / 2
+            total_loss = (
+                loss_img(logits_per_image, ground_truth)
+                + loss_txt(logits_per_text, ground_truth)
+            ) / 2
             test_loss += total_loss
 
     print(f"Epoch {epoch}, Train loss {train_loss / len(loaded_train_dataloader)}")
