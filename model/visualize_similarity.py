@@ -1,27 +1,29 @@
-import os
-import load_dataset
 import clip
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
+import warnings
 from PIL import Image
 from loguru import logger
-import warnings
+from utils import get_dataset, preprocess
+from config import Config
+
 warnings.filterwarnings("ignore")
 
+PRETRAINED_PATH = Config.PRETRAINED_PATH
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device)
-logger.info("Loaded model successfully!")
+logger.info(f"Device: {device}")
 
-pretrained_model = torch.load('model_storage/pretrained_clip.pt')
-logger.info("Loaded pretrained model successfully!")
-
-os.environ['EXTRACT_DIR'] = "/tmp/GLAMI-1M/"
-load_dataset.download_dataset(dataset_url="https://huggingface.co/datasets/glami/glami-1m/resolve/main/GLAMI-1M-dataset--test-only.zip")
+df = get_dataset()
 logger.info("Loaded dataset successfully!")
 
-df = load_dataset.get_dataframe('test')[['category_name', 'image_file']]
+model, _ = clip.load("ViT-B/32", device=device)
+logger.info("Loaded original model successfully!")
+
+pretrained_model = torch.load(PRETRAINED_PATH)
+logger.info("Loaded pretrained model successfully!")
+
 df_compare = df.sample(10, random_state=41)
 
 def visualize_similarity(using_pretrained=True):
@@ -32,12 +34,11 @@ def visualize_similarity(using_pretrained=True):
     texts = []
 
     for row in df_compare.itertuples(index=True):
-
         text = row.category_name
         texts.append(text)
 
         image = Image.open(row.image_file).convert("RGB")
-        image_input = preprocess(image).unsqueeze(0).cuda()
+        image_input = preprocess()(image).unsqueeze(0).cuda()
         images.append(image)
 
         with torch.no_grad():
@@ -81,7 +82,6 @@ def visualize_similarity(using_pretrained=True):
     plt.title(f"Cosine similarity between text and image embeddings {'using' if using_pretrained is True else 'not using'} pretrained model", size=20)
     plt.savefig(f"text_image_similarity/{'using' if using_pretrained is True else 'not_using'}_pretrained_model.png",  bbox_inches='tight')
     plt.show()
-    
 
 visualize_similarity(using_pretrained=False)
 visualize_similarity(using_pretrained=True)
