@@ -1,5 +1,10 @@
-You can download my pretrained model in [here](https://drive.google.com/file/d/1dmqfp-yb8EhzwSjI9pZi6ZAeKjngdtaT/view?usp=sharing)
+You can download my pretrained model in [here](https://drive.google.com/file/d/1dmqfp-yb8EhzwSjI9pZi6ZAeKjngdtaT/view?usp=sharing).
 
-![Cosine similarity_betwee_text_and_image_embeddings_not_using_pretrained model](./text_image_similarity/not_using_pretrained_model.png)
++ `train.py` for fine-tune [CLIP](https://arxiv.org/abs/2103.00020).
++ `inference.py` for get entire embedding images in [GLAMI-1M small dataset](https://huggingface.co/datasets/glami/glami-1m/resolve/main/GLAMI-1M-dataset--test-only.zip).
++ `insert_vdb.py` for insert embedding images to [Pinecone](https://www.pinecone.io/) vector database.
++ `visualize_similarity.py` for visualize cosine similarity between text and image embeddings between using original and pretrained model.
+
+![Cosine similarity betweet text and image embeddings not using pretrained model](./text_image_similarity/not_using_pretrained_model.png)
 
 ![Cosine similarity between text and image embeddings using pretrained model](./text_image_similarity/using_pretrained_model.png)
