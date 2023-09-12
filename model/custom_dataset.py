@@ -1,14 +1,17 @@
 import clip
 import numpy as np
-from torch.utils.data import Dataset, BatchSampler
+from torch.utils.data import BatchSampler, Dataset
 from utils import preprocess
 
 
 class FashionDataset(Dataset):
-    """_summary_
-    Args:
-        Dataset (_type_): _description_
     """
+    Create dataset for training
+
+    Args:
+        Dataset (torch.utils.data.Dataset)
+    """
+
     def __init__(self, images_list, prompt_list, label_list, preprocess):
         self.images_list = images_list
         self.prompt_list = prompt_list
@@ -27,7 +30,7 @@ class FashionDataset(Dataset):
 
         label = self.label_list[idx]
         return image_tensor, prompt_token, label
-    
+
 
 class BalancedBatchSampler(BatchSampler):
     """
@@ -37,8 +40,10 @@ class BalancedBatchSampler(BatchSampler):
     def __init__(self, labels, n_classes, n_samples):
         self.labels = labels
         self.labels_set = list(set(self.labels.numpy()))
-        self.label_to_indices = {label: np.where(self.labels.numpy() == label)[0]
-                                 for label in self.labels_set}
+        self.label_to_indices = {
+            label: np.where(self.labels.numpy() == label)[0]
+            for label in self.labels_set
+        }
         for l in self.labels_set:
             np.random.shuffle(self.label_to_indices[l])
         self.used_label_indices_count = {label: 0 for label in self.labels_set}
@@ -54,11 +59,18 @@ class BalancedBatchSampler(BatchSampler):
             classes = np.random.choice(self.labels_set, self.n_classes, replace=False)
             indices = []
             for class_ in classes:
-                indices.extend(self.label_to_indices[class_][
-                               self.used_label_indices_count[class_]:self.used_label_indices_count[
-                                                                         class_] + self.n_samples])
+                indices.extend(
+                    self.label_to_indices[class_][
+                        self.used_label_indices_count[
+                            class_
+                        ] : self.used_label_indices_count[class_]
+                        + self.n_samples
+                    ]
+                )
                 self.used_label_indices_count[class_] += self.n_samples
-                if self.used_label_indices_count[class_] + self.n_samples > len(self.label_to_indices[class_]):
+                if self.used_label_indices_count[class_] + self.n_samples > len(
+                    self.label_to_indices[class_]
+                ):
                     np.random.shuffle(self.label_to_indices[class_])
                     self.used_label_indices_count[class_] = 0
             yield indices
@@ -66,16 +78,22 @@ class BalancedBatchSampler(BatchSampler):
 
     def __len__(self):
         return self.n_dataset // self.batch_size
-    
+
 
 class FashionInfer(Dataset):
+    """
+    Create dataset for inference
+
+    Args:
+        Dataset (torch.utils.data.Dataset)
+    """
+
     def __init__(self, images_list):
         self.images_list = images_list
-        
+
     def __len__(self):
         return len(self.images_list)
-    
+
     def __getitem__(self, idx):
         image_tensor = preprocess()(self.images_list[idx])
         return image_tensor
-    
