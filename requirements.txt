@@ -1,0 +1,9 @@
+clip
+dotenv
+loguru
+matplotlib==3.5.1
+numpy==1.25.2
+pandas==1.4.2
+pinecone-client
+torch==1.13.1
+tqdm
