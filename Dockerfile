@@ -3,9 +3,7 @@ FROM python:3.8
 WORKDIR /app
 
 COPY /app /app/app
-COPY /tmp/GLAMI-1M /tmp/GLAMI-1M
 COPY model/model_storage /app/model/model_storage
-COPY model/data.csv /app/model/data.csv
 COPY database/.env /app/database/.env
 
 WORKDIR /app/app
