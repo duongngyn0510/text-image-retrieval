@@ -48,7 +48,7 @@ async def image_url(image_file: UploadFile = File(...)):
     if pil_hash not in image_cache:
         logger.info("Getting related products!")
         image_embedding = get_image_embedding(model, DEVICE, pil_image)
-        match_ids = search(index, image_embedding, top_k=8)
+        match_ids = search(index, image_embedding, top_k=AppConfig.TOP_IMAGES)
         image_cache[pil_hash] = match_ids
     else:
         logger.info("Getting related products from cache!")
@@ -85,10 +85,11 @@ async def text_url(text_query: str):
     Returns:
        (List): List of top images url
     """
+    print
     if text_query not in text_cache:
         logger.info("Getting related products!")
         text_embedding = get_text_embedding(model, DEVICE, text_query)
-        match_ids = search(index, text_embedding, top_k=8)
+        match_ids = search(index, text_embedding, top_k=AppConfig.TOP_IMAGES)
         text_cache[text_query] = match_ids
     else:
         logger.info("Getting related products from cache!")
