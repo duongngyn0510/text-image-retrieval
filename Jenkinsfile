@@ -25,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    def dockerImage = docker.build(registry, ":${BUILD_NUMBER}", "--build-arg PINECONE_APIKEY=${PINECONE_APIKEY} .")
+                    def dockerImage = docker.build("${registry}", ":${BUILD_NUMBER}", "--build-arg PINECONE_APIKEY=${PINECONE_APIKEY} .")
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
