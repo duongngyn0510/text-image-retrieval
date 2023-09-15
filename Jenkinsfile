@@ -25,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dockerImage = docker.build registry + "v1." + ":$BUILD_NUMBER"
+                    dockerImage = docker.build registry + ":v1.$BUILD_NUMBER"
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
