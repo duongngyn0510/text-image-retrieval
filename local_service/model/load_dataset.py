@@ -5,13 +5,16 @@ import logging
 import os
 import zipfile
 from tempfile import TemporaryFile
-from typing import BinaryIO, Optional, Dict
+from typing import BinaryIO, Dict, Optional
 
+import pandas as pd
 import requests
 from tqdm import tqdm
-import pandas as pd
 
-DATASET_URL = os.environ.get("DATASET_URL", "https://zenodo.org/record/7326406/files/GLAMI-1M-dataset.zip?download=1")
+DATASET_URL = os.environ.get(
+    "DATASET_URL",
+    "https://zenodo.org/record/7326406/files/GLAMI-1M-dataset.zip?download=1",
+)
 EXTRACT_DIR = os.environ.get("EXTRACT_DIR", "/tmp/GLAMI-1M")
 DATASET_SUBDIR = "GLAMI-1M-dataset"
 DATASET_DIR = dataset_dir = EXTRACT_DIR + "/" + DATASET_SUBDIR
@@ -55,10 +58,18 @@ COUNTRY_CODE_TO_COUNTRY_NAME = {
     "bg": "Bulgaria",
 }
 
-COUNTRY_CODE_TO_COUNTRY_NAME_W_CC = {name + f' ({cc})' for cc, name in COUNTRY_CODE_TO_COUNTRY_NAME}
+COUNTRY_CODE_TO_COUNTRY_NAME_W_CC = {
+    name + f" ({cc})" for cc, name in COUNTRY_CODE_TO_COUNTRY_NAME
+}
 
 
-def http_get(url: str, temp_file: BinaryIO, proxies=None, resume_size=0, headers: Optional[Dict[str, str]] = None):
+def http_get(
+    url: str,
+    temp_file: BinaryIO,
+    proxies=None,
+    resume_size=0,
+    headers: Optional[Dict[str, str]] = None,
+):
     """
     Download remote file. Do not gobble up errors.
 
@@ -98,7 +109,7 @@ def download_dataset(extract_dir=EXTRACT_DIR, dataset_url=DATASET_URL):
     This at the same time prevets disk overflow.
     """
 
-    if not os.path.exists(extract_dir + '/' + DATASET_SUBDIR):
+    if not os.path.exists(extract_dir + "/" + DATASET_SUBDIR):
         assert dataset_url is not None, f"Dataset URL is required"
         with TemporaryFile() as zf:
             http_get(dataset_url, zf)
@@ -110,16 +121,32 @@ def download_dataset(extract_dir=EXTRACT_DIR, dataset_url=DATASET_URL):
                     f._extract_member(zipinfo, extract_dir, None)
 
     else:
-        print("Dataset sub directory already exists in the extract dir. Delete it to re-download.")
+        print(
+            "Dataset sub directory already exists in the extract dir. Delete it to re-download."
+        )
 
 
 def get_dataframe(split_type: str, dataset_dir=DATASET_DIR):
     assert split_type in ("train", "test")
     df = pd.read_csv(dataset_dir + f"/GLAMI-1M-{split_type}.csv")
-    df[COL_NAME_IMAGE_FILE] = dataset_dir + "/images/" + df[COL_NAME_IMAGE_ID].astype(str) + ".jpg"
-    df[COL_NAME_DESCRIPTION] = df[COL_NAME_DESCRIPTION].fillna('')
+    df[COL_NAME_IMAGE_FILE] = (
+        dataset_dir + "/images/" + df[COL_NAME_IMAGE_ID].astype(str) + ".jpg"
+    )
+    df[COL_NAME_DESCRIPTION] = df[COL_NAME_DESCRIPTION].fillna("")
     assert os.path.exists(df.loc[0, COL_NAME_IMAGE_FILE])
-    return df[[COL_NAME_ITEM_ID, COL_NAME_IMAGE_ID, COL_NAME_NAME, COL_NAME_DESCRIPTION, COL_NAME_GEO, COL_NAME_CATEGORY, COL_NAME_CAT_NAME, COL_NAME_LABEL_SOURCE, COL_NAME_IMAGE_FILE]]
+    return df[
+        [
+            COL_NAME_ITEM_ID,
+            COL_NAME_IMAGE_ID,
+            COL_NAME_NAME,
+            COL_NAME_DESCRIPTION,
+            COL_NAME_GEO,
+            COL_NAME_CATEGORY,
+            COL_NAME_CAT_NAME,
+            COL_NAME_LABEL_SOURCE,
+            COL_NAME_IMAGE_FILE,
+        ]
+    ]
 
 
 if __name__ == "__main__":

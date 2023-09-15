@@ -20,6 +20,7 @@ Fine-tune [CLIP](https://arxiv.org/abs/2103.00020) in image-retrieval task
 Using [Pinecone](https://www.pinecone.io/) vector database for fast retrieval result
 + Vector database contains **85577** vector ids, those vectors are images embedding and their metadata.
 
+Using Google Cloud Storage for storing image data
 
 ## Local test
 Can build the new image from `Dockerfile` or reuse my image.

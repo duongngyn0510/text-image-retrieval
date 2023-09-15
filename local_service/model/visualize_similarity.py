@@ -1,12 +1,13 @@
-import clip
-import torch
-import numpy as np
-import matplotlib.pyplot as plt
 import warnings
-from PIL import Image
-from loguru import logger
-from utils import get_dataset, preprocess
+
+import clip
+import matplotlib.pyplot as plt
+import numpy as np
+import torch
 from config import Config
+from loguru import logger
+from PIL import Image
+from utils import get_dataset, preprocess
 
 warnings.filterwarnings("ignore")
 
@@ -26,8 +27,8 @@ logger.info("Loaded pretrained model successfully!")
 
 df_compare = df.sample(10, random_state=41)
 
-def visualize_similarity(using_pretrained=True):
 
+def visualize_similarity(using_pretrained=True):
     image_embeddings = []
     text_embeddings = []
     images = []
@@ -44,23 +45,27 @@ def visualize_similarity(using_pretrained=True):
         with torch.no_grad():
             if using_pretrained:
                 image_embedding = pretrained_model.encode_image(image_input).float()
-                text_embedding = pretrained_model.encode_text(clip.tokenize(text).to(device)).float()
+                text_embedding = pretrained_model.encode_text(
+                    clip.tokenize(text).to(device)
+                ).float()
             else:
                 image_embedding = model.encode_image(image_input).float()
-                text_embedding = model.encode_text(clip.tokenize(text).to(device)).float()
-                
+                text_embedding = model.encode_text(
+                    clip.tokenize(text).to(device)
+                ).float()
+
         image_embedding /= image_embedding.norm(dim=-1, keepdim=True)
         text_embedding /= text_embedding.norm(dim=-1, keepdim=True)
 
         image_embeddings.append(image_embedding.cpu().numpy())
         text_embeddings.append(text_embedding.cpu().numpy())
-        
+
     similarity = np.zeros((len(images), len(images)), dtype=float)
     for i, image_embedding in enumerate(image_embeddings):
         for j, text_embedding in enumerate(text_embeddings):
             dot = image_embedding @ text_embedding.T
             similarity[i, j] = dot
-            
+
     count = len(texts)
     plt.figure(figsize=(20, 14))
     plt.imshow(similarity, vmin=0.1, vmax=0.3)
@@ -79,9 +84,16 @@ def visualize_similarity(using_pretrained=True):
     plt.xlim([-0.5, count - 0.5])
     plt.ylim([count + 0.5, -2])
 
-    plt.title(f"Cosine similarity between text and image embeddings {'using' if using_pretrained is True else 'not using'} pretrained model", size=20)
-    plt.savefig(f"text_image_similarity/{'using' if using_pretrained is True else 'not_using'}_pretrained_model.png",  bbox_inches='tight')
+    plt.title(
+        f"Cosine similarity between text and image embeddings {'using' if using_pretrained is True else 'not using'} pretrained model",
+        size=20,
+    )
+    plt.savefig(
+        f"text_image_similarity/{'using' if using_pretrained is True else 'not_using'}_pretrained_model.png",
+        bbox_inches="tight",
+    )
     plt.show()
+
 
 visualize_similarity(using_pretrained=False)
 visualize_similarity(using_pretrained=True)

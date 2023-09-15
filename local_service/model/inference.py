@@ -1,12 +1,13 @@
-import torch
 import warnings
-from torch.utils.data import DataLoader
-from PIL import Image
-from tqdm import tqdm
-from loguru import logger
-from custom_dataset import FashionInfer
-from utils import *
+
+import torch
 from config import Config
+from custom_dataset import FashionInfer
+from loguru import logger
+from PIL import Image
+from torch.utils.data import DataLoader
+from tqdm import tqdm
+from utils import *
 
 warnings.filterwarnings("ignore")
 
@@ -24,7 +25,7 @@ logger.info("Loaded pretrained model successfully!")
 
 images_list = []
 for image in tqdm(df_infer.image_file, desc="Appending images"):
-    images_list.append(Image.open(image).convert('RGB'))
+    images_list.append(Image.open(image).convert("RGB"))
 
 dataset = FashionInfer(images_list)
 data_loader = DataLoader(dataset, batch_size=16)
@@ -35,14 +36,18 @@ model.eval()
 for images_tensor in tqdm(data_loader, desc="Inferencing"):
     images_tensor = images_tensor.to(device)
     embedding_image = model.encode_image(images_tensor)
-    embedding_images.extend([i.tolist() for i in embedding_image.detach().cpu().numpy()])
+    embedding_images.extend(
+        [i.tolist() for i in embedding_image.detach().cpu().numpy()]
+    )
 
 vectors_upsert = []
-for i, (product_name, embedding) in enumerate(zip(df_infer.category_name.values, embedding_images)):
+for i, (product_name, embedding) in enumerate(
+    zip(df_infer.category_name.values, embedding_images)
+):
     vector_upsert = {
-        'id': str(i),
-        'values': embedding,
-        'metadata': {'product name': product_name}
+        "id": str(i),
+        "values": embedding,
+        "metadata": {"product name": product_name},
     }
     vectors_upsert.append(vector_upsert)
 
