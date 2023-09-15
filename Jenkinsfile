@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment{
-        registry = 'duong05102002/text-image-retrieval'
+        registry = 'duong05102002/text-image-retrieval-serving'
         registryCredential = 'dockerhub'
     }
 

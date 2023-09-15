@@ -1,0 +1,12 @@
+fastapi==0.96.0
+imagehash==4.3.1
+loguru
+matplotlib==3.5.1
+pandas==1.4.2
+pinecone-client
+python-dotenv
+python-multipart==0.0.6
+torch==1.13.1
+torchvision
+tqdm
+uvicorn[standard]==0.22.0

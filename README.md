@@ -23,8 +23,8 @@ Using [Pinecone](https://www.pinecone.io/) vector database for fast retrieval re
 Using Google Cloud Storage for storing image data
 
 ## Local test
-Can build the new image from `Dockerfile` or reuse my image.
 ```bash
+$ cd local_service
 $ docker pull duong05102002/text-image-retrieval:v1.0.0
 ```
 Run `client.py` for test the api.
