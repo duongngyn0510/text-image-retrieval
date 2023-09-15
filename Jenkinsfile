@@ -26,9 +26,9 @@ pipeline {
             steps {
                 script {
                     echo 'Building image for deployment..'
-                    def imageName = "${registry}:${BUILD_NUMBER}"
+                    def imageName = "${registry}:v1.${BUILD_NUMBER}"
                     def buildArgs = "--build-arg PINECONE_APIKEY=${PINECONE_APIKEY}"
-                    // dockerImage = docker.build registry + ":$BUILD_NUMBER" + "--build-arg PINECONE_APIKEY=$PINECONE_APIKEY"
+
                     dockerImage = docker.build(imageName, "--file Dockerfile ${buildArgs} .")
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
