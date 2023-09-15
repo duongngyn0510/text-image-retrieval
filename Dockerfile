@@ -1,11 +1,12 @@
 FROM python:3.8
 
-
-WORKDIR /app
 ARG PINECONE_APIKEY
 
-COPY /model_serving/app /app/model_serving/app
+WORKDIR /app
 
+ENV PINECONE_APIKEY = $PINECONE_APIKEY
+
+COPY /model_serving/app /app/model_serving/app
 
 WORKDIR /app/model_serving/app
 
