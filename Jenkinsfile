@@ -20,6 +20,7 @@ pipeline {
             }
             steps {
                 echo 'Testing model correctness..'
+                sh 'pip install -r local_service/requirements.txt'
             }
         }
         stage('Build') {
