@@ -4,7 +4,7 @@ FROM python:3.8
 WORKDIR /app
 
 COPY /model_serving/app /app/model_serving/app
-
+RUN echo ${PINECONE_APIKEY}
 # Set PINECONE_APIKEY env variable in Jenkins dashboard
 RUN echo $PINECONE_APIKEY > /app/model_serving/.env
 
