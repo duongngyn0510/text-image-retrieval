@@ -27,6 +27,9 @@ pipeline {
             steps {
                 script {
                     echo 'Building image for deployment..'
+                    def dockerHome = tool 'myDocker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
