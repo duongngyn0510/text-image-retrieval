@@ -2,6 +2,7 @@ import argparse
 import webbrowser
 
 import requests
+
 from app.config import AppConfig
 
 base_api = f"http://localhost:{AppConfig.PORT_EXPOSE}"
