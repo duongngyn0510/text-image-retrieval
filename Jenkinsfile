@@ -20,6 +20,7 @@ pipeline {
             }
             steps {
                 echo 'Testing model correctness..'
+                sh 'echo ${PINECONE_APIKEY}'
             }
         }
         stage('Build') {
