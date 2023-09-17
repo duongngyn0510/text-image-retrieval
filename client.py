@@ -50,7 +50,7 @@ class DisplayImage:
     def display(response):
         with open("temp.html", "w", encoding="utf-8") as f:
             f.write(response.text)
-            # webbrowser.open("temp.html")
+            webbrowser.open("temp.html")
 
     def main(self):
         if self.text_query is not None:
