@@ -3,7 +3,7 @@ from typing import List
 import pinecone
 from dotenv import dotenv_values
 
-config = dotenv_values("../.env")
+config = dotenv_values(".env")
 api_key = config["API_KEY"]
 
 

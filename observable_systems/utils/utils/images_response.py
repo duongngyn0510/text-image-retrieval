@@ -14,7 +14,7 @@ def get_image_url(match_ids: List[int]) -> List[str]:
     """
     print(os.getcwd())
 
-    with open("../utils/id2url.json", "r") as f:
+    with open("./utils/id2url.json", "r") as f:
         id2url = json.load(f)
     images_url = []
     for i in match_ids:
