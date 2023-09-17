@@ -6,7 +6,7 @@
 
 ```bash
 $ pip install git+https://github.com/openai/CLIP.git
-$ pin install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ### Model
