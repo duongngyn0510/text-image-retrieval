@@ -41,6 +41,27 @@ $ python client.py --save_dir temp.html --text_query your_text_query
 ```
 **Note**: Refresh the html page to display the images
 
++ **Top 8 products images similar with image query:** 
+
+![](app/images/woman_blazers.png)
+
+<html>
+    <body>
+        <div class="image-grid">
+<img src="https://storage.googleapis.com/fashion_image/168125.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/510624.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/919453.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/509864.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/1002845.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/6678.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/589519.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/67591.jpg" alt="Image" width="200" height="300">
+        </body>
+    </html>
+
+
+
++ **Top 8 products images similar with text query: crop top** 
+<html>
+    <body>
+        <div class="image-grid">
+<img src="https://storage.googleapis.com/fashion_image/640366.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/965820.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/607634.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/673682.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/615135.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/38530.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/455345.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/742095.jpg" alt="Image" width="200" height="300">
+        </body>
+    </html>
+
 ### Response time (traces)
 
 + Image query
@@ -49,27 +70,5 @@ $ python client.py --save_dir temp.html --text_query your_text_query
 + Text query
 ![result](observable_systems/traces_text_query.png)
 
-**Note**: Refresh the html page to display the images
-
-+ **Top 5 products images similar with image query:**
-![](app/images/woman_blazers.png)
-
-<html>
-    <body>
-        <div class="image-grid">
-<img src="https://storage.googleapis.com/fashion_image/168125.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/510624.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/919453.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/509864.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/1002845.jpg" alt="Image" width="200" height="300">
-        </body>
-    </html>
-
-
-
-+ **Top 5 products images similar with text query: crop top** 
-<html>
-    <body>
-        <div class="image-grid">
-<img src="https://storage.googleapis.com/fashion_image/640366.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/965820.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/607634.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/673682.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/615135.jpg" alt="Image" width="200" height="300">
-        </body>
-    </html>
-    
 ### CI/CD
 `Jenkinsfile` for test CI/CD in local
