@@ -1,13 +1,16 @@
 # Build end2end text-image retrieval app
 
-## Requirements
+## Local service
+
+### Requirements
 
 ```bash
+$ cd local_service
 $ pip install git+https://github.com/openai/CLIP.git
 $ pin install -r requirements.txt
 ```
 
-## Model
+### Model
 
 Fine-tune [CLIP](https://arxiv.org/abs/2103.00020) in image-retrieval task
 
@@ -15,19 +18,19 @@ Fine-tune [CLIP](https://arxiv.org/abs/2103.00020) in image-retrieval task
 
 +  **Output**: Top images with the highest similarity according to the cosine metrics.
 
-## Database
+### Database
 
 Using [Pinecone](https://www.pinecone.io/) vector database for fast retrieval result
 + Vector database contains **85577** vector ids, those vectors are images embedding and their metadata.
 
 Using Google Cloud Storage for storing image data
 
-## Local test
+### Local test
 ```bash
-$ cd local_service
 $ docker pull duong05102002/text-image-retrieval:v1.0.0
+$ cd ..
 ```
-Run `client.py` for test the api.
+Run `client.py` for test the local api.
 
 + image query
 ```bash

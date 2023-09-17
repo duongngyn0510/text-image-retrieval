@@ -28,8 +28,9 @@ pipeline {
                     echo 'Building image for deployment..'
                     def imageName = "${registry}:v1.${BUILD_NUMBER}"
                     def buildArgs = "--build-arg PINECONE_APIKEY=${PINECONE_APIKEY}"
+                    // PINECONE_APIKEY env is set up on Jenkins dashboard
 
-                    dockerImage = docker.build(imageName, "--file Dockerfile ${buildArgs} .")
+                    dockerImage = docker.build(imageName, "--file Dockerfile-jenkin ${buildArgs} .")
                     echo 'Pushing image to dockerhub..'
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
