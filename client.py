@@ -35,7 +35,7 @@ class DisplayImage:
 
         response = requests.post(text_api, params=params, headers=headers)
         if response.status_code == 200:
-            self.display(response)
+            self._display(response)
 
     def request_image(self, image_file):
         image_api = f"{base_api}/display_image"
@@ -44,10 +44,10 @@ class DisplayImage:
 
         response = requests.post(image_api, files=files)
         if response.status_code == 200:
-            self.display(response)
+            self._display(response)
 
     @staticmethod
-    def display(response):
+    def _display(response):
         with open("temp.html", "w", encoding="utf-8") as f:
             f.write(response.text)
             webbrowser.open("temp.html")
