@@ -5,7 +5,6 @@
 ### Requirements
 
 ```bash
-$ cd local_service
 $ pip install git+https://github.com/openai/CLIP.git
 $ pin install -r requirements.txt
 ```
