@@ -51,9 +51,7 @@ $ python client.py --save_dir temp.html --text_query your_text_query
 
 **Note**: Refresh the html page to display the images
 
-+ **Top 5 products images similar with image query:** 
-
-![](app/images/woman_blazers.png)
++ **Top 5 products images similar with image query: ![](app/images/woman_blazers.png)**
 
 <html>
     <body>
