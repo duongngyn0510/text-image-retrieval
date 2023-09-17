@@ -32,8 +32,10 @@ def request_image(image_file):
 
 
 if __name__ == "__main__":
+    # not in cache
+
     generated_strings = []
-    length = 10
+    length = 20
     images_file = os.listdir("/tmp/GLAMI-1M/GLAMI-1M-dataset/images/")
     num_strings_query = 1000
 
@@ -49,3 +51,11 @@ if __name__ == "__main__":
         )
         request_text(generated_strings[i])
         sleep(1)
+
+    # in cache
+    # images_file = os.listdir("/tmp/GLAMI-1M/GLAMI-1M-dataset/images/")
+    # for i in range(len(images_file)):
+    #     request_image(
+    #         os.path.join("/tmp/GLAMI-1M/GLAMI-1M-dataset/images/", images_file[1])
+    #     )
+    #     sleep(1)

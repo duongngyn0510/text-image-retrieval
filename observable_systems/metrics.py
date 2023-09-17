@@ -1,6 +1,3 @@
-import sys
-
-sys.path.append("../")
 from io import BytesIO
 from time import time
 
@@ -111,7 +108,7 @@ async def display_image(image_file: UploadFile = File(...)):
     # Increase the counter
     label = {"api": "/display_image"}
 
-    counter.add(10, label)
+    counter.add(1, label)
 
     # Mark the end of the response
     ending_time = time()
@@ -166,7 +163,7 @@ async def display_text(text_query: str):
     label = {"api": "/display_text"}
 
     # Increase the counter
-    counter.add(10, label)
+    counter.add(1, label)
 
     # Mark the end of the response
     ending_time = time()
