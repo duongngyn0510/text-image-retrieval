@@ -51,14 +51,14 @@ $ python client.py --save_dir temp.html --text_query your_text_query
 
 **Note**: Refresh the html page to display the images
 
-+ **Top 8 products images similar with image query:** 
++ **Top 5 products images similar with image query:** 
 
 ![](app/images/woman_blazers.png)
 
 <html>
     <body>
         <div class="image-grid">
-<img src="https://storage.googleapis.com/fashion_image/168125.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/510624.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/919453.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/509864.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/1002845.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/6678.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/589519.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/67591.jpg" alt="Image" width="200" height="300">
+<img src="https://storage.googleapis.com/fashion_image/168125.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/510624.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/919453.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/509864.jpg" alt="Image" width="200" height="300"><img src="https://storage.googleapis.com/fashion_image/1002845.jpg" alt="Image" width="200" height="300">
         </body>
     </html>
 
