@@ -51,7 +51,7 @@ $ python client.py --save_dir temp.html --text_query your_text_query
 
 **Note**: Refresh the html page to display the images
 
-**Top 8 products images similar with image query:** 
++ **Top 8 products images similar with image query:** 
 
 ![](app/images/woman_blazers.png)
 
@@ -63,7 +63,8 @@ $ python client.py --save_dir temp.html --text_query your_text_query
     </html>
 
 
-**Top 8 products images similar with text query: crop top** 
+
++ **Top 8 products images similar with text query: crop top** 
 <html>
     <body>
         <div class="image-grid">
