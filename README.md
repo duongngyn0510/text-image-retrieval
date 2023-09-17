@@ -27,6 +27,7 @@ Using Google Cloud Storage for storing image data
 ### Local test
 ```bash
 $ docker pull duong05102002/retrieval-local-service:v1.23
+$ docker run -p 30000:30000 duong05102002/retrieval-local-service:v1.23
 ```
 Run `client.py` for test the local api.
 
