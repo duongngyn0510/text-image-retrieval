@@ -69,6 +69,3 @@ $ python client.py --save_dir temp.html --text_query your_text_query
 
 + Text query
 ![result](observable_systems/traces_text_query.png)
-
-### CI/CD
-`Jenkinsfile` for test CI/CD in local
